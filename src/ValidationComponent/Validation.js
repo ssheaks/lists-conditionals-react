@@ -1,4 +1,5 @@
 import React from 'react';
+import './Validation.css'
 
 const validation = (props) => {
     console.log(props)
