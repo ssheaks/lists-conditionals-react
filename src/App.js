@@ -10,7 +10,8 @@ class App extends Component {
       { name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
+    inputText: 'change me'
   }
 
   switchNameHandler = ( newName ) => {
@@ -31,14 +32,22 @@ class App extends Component {
         { name: 'Max', age: 28 },
         { name: event.target.value, age: 29 },
         { name: 'Stephanie', age: 26 }
-      ],
-      inputText: 'change me'
+      ]
     } )
   }
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState( { showPersons: !doesShow } );
+  }
+
+  inputChangedHandler = (event) => {
+    console.log('input changed')
+    const newInput = event.target.value;
+    console.log(newInput);
+    this.setState(
+      {inputText: newInput}
+    )
   }
 
   render () {
@@ -70,11 +79,16 @@ class App extends Component {
       );
     }
 
+    let inputLength = <p>Input Length: {this.state.inputText.length}</p>
+
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <input type="text" value={this.state.inputText} onChange={(event) => this.inputChangeHandler(event, text)} />
+        <div>
+          <input type='text' onChange={(event) => this.inputChangedHandler(event)} value={this.state.inputText} />
+        </div>
+        {inputLength}
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
