@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Validation from './ValidationComponent/Validation'
 
 class App extends Component {
   state = {
@@ -11,7 +12,8 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false,
-    inputText: 'change me'
+    inputText: '',
+    textLength: 0
   }
 
   switchNameHandler = ( newName ) => {
@@ -44,9 +46,11 @@ class App extends Component {
   inputChangedHandler = (event) => {
     console.log('input changed')
     const newInput = event.target.value;
-    console.log(newInput);
+    const newLength = newInput.length;
+    console.log(newInput, newLength);
     this.setState(
-      {inputText: newInput}
+      {inputText: newInput,
+      textLength: newLength}
     )
   }
 
@@ -79,7 +83,7 @@ class App extends Component {
       );
     }
 
-    let inputLength = <p>Input Length: {this.state.inputText.length}</p>
+    let inputLength = <p>Text length: {this.state.textLength}</p>
 
     return (
       <div className="App">
@@ -89,6 +93,7 @@ class App extends Component {
           <input type='text' onChange={(event) => this.inputChangedHandler(event)} value={this.state.inputText} />
         </div>
         {inputLength}
+        <Validation length={this.state.textLength} />
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
