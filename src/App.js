@@ -31,7 +31,8 @@ class App extends Component {
         { name: 'Max', age: 28 },
         { name: event.target.value, age: 29 },
         { name: 'Stephanie', age: 26 }
-      ]
+      ],
+      inputText: 'change me'
     } )
   }
 
@@ -73,6 +74,7 @@ class App extends Component {
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
+        <input type="text" value={this.state.inputText} onChange={(event) => this.inputChangeHandler(event, text)} />
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
