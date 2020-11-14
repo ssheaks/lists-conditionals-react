@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 import Validation from './ValidationComponent/Validation'
+import Char from './CharComponent/CharComponent'
 
 class App extends Component {
   state = {
@@ -13,7 +14,8 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false,
     inputText: '',
-    textLength: 0
+    textLength: 0,
+    charArray: []
   }
 
   switchNameHandler = ( newName ) => {
@@ -85,6 +87,21 @@ class App extends Component {
 
     let inputLength = <p>Text length: {this.state.textLength}</p>
 
+    //split input text into a string
+    let inputArr = this.state.inputText.split("")
+    console.log(inputArr)
+    //create list of chars to be rendered by the charComponent
+    let charList = (
+      <div>
+        {inputArr.map((char, index) => {
+          return <Char 
+          click={() => this.deleteCharHandler(index)}
+          char={char}
+          />
+        })}
+      </div>
+    )
+
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
@@ -94,6 +111,7 @@ class App extends Component {
         </div>
         {inputLength}
         <Validation length={this.state.textLength} />
+        {charList}
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
