@@ -49,11 +49,30 @@ class App extends Component {
     console.log('input changed')
     const newInput = event.target.value;
     const newLength = newInput.length;
-    console.log(newInput, newLength);
+    const newCharArray = newInput.split("")
+    // const charArrayNew = newInput;
+    console.log('new input', newInput, newLength, newCharArray);
+    
     this.setState(
       {inputText: newInput,
-      textLength: newLength}
+      textLength: newLength,
+      charArray: newCharArray}
     )
+  }
+
+  deleteCharHandler = (id) => {
+    console.log(id)
+    const newInput = this.state.inputText.slice(0, id) + this.state.inputText.slice(id+1)
+    const newLength = newInput.length;
+    const newCharArr = this.state.charArray
+    newCharArr.splice(id, 1)
+    console.log(newCharArr, newInput)
+    this.setState({
+      charArray: newCharArr,
+      textLength: newLength,
+      inputText: newInput,
+      
+    })
   }
 
   render () {
@@ -87,14 +106,12 @@ class App extends Component {
 
     let inputLength = <p>Text length: {this.state.textLength}</p>
 
-    //split input text into a string
-    let inputArr = this.state.inputText.split("")
-    console.log(inputArr)
     //create list of chars to be rendered by the charComponent
     let charList = (
       <div>
-        {inputArr.map((char, index) => {
+        {this.state.charArray.map((char, index) => {
           return <Char 
+          id={index}
           click={() => this.deleteCharHandler(index)}
           char={char}
           />
